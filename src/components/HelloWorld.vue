@@ -17,7 +17,7 @@
 
             <div v-for = "tail in card.css"    
             :class="makeCss(tail)" :key="tail">
-              <a :href = "makeQR(('https://'+card[root.suits[suitID]].u) || 'https://poker.bestian.tw')" target="_blank">
+              <a :href = "('https://'+card[root.suits[suitID]].u) || 'https://poker.bestian.tw'" target="_blank">
 
               <img class = "icon" :src="'https://chart.apis.google.com/chart?chs=200x200&amp;cht=qr&amp;chld=|1&amp;chl=http%3A%2F%2F' + (card[root.suits[suitID]].u || 'pokercard.bestian.tw')" :alt="card[root.suits[suitID]].t" >
 
