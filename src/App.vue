@@ -160,9 +160,9 @@ nav {
 }
 
 nav a {
-  padding: 5px;
+  padding: 5px 10px;
   background-color: white;
-  font-size: 18px;
+  font-size: 24px;
   text-decoration: none;
 }
 
