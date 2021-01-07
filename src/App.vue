@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to = "/">檢視</router-link>
-      <router-link to = "/edit">編輯</router-link>
+      <router-link to = "/"><h3>檢視</h3></router-link>
+      <router-link to = "/edit"><h3>編輯</h3></router-link>
     </nav>
     <router-view :keys="keys" :root="root" @updateCards="updateCards"/>
   </div>
@@ -164,6 +164,10 @@ nav a {
   background-color: white;
   font-size: 24px;
   text-decoration: none;
+}
+
+h3 {
+  display: inline;
 }
 
 </style>
