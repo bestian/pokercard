@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html ng-app = "pokerApp">
+
+<head>
+  <meta charset=utf-8 />
+  <title>自主公民。友善社會。樸克牌。</title>
+  <meta name="description" content="可自訂收藏的60個連結，列印下來即可和朋友分享。" />
+  <meta property="og:url" content="https://bestian.github.io/pokercard" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="自主公民。友善社會。樸克牌。" />
+  <meta property="og:description" content="可自訂收藏的60個連結，列印下來即可和朋友分享。" />
+  <meta property="og:image" content="http://bestian.github.io/pokercard/img/cards/Jocker1.jpg" />
+  <link rel = "stylesheet" href="./stylesheets/index.css"/>
+  <link rel="apple-touch-icon" sizes="57x57" href="./apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="./apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="./apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="./apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="./apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="./apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="./apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="./apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="./android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="./favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="shortcut icon" type="image/png" href="./favicon-16x16.png"/>
+  <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+
+<body ng-controller = "Ctrl" ng-cloak>
+
+<div id = "headInfos" class = "noPrint">
+  <div>
+  </div>
+</div>
+
+<div id = "whiteback"></div>
+
+<a id = "doPrint" class="noPrint" onclick="window.print()">列印樸克牌。&spades;&hearts;&diams;&clubs;
+	</a>
+
+
+<form id="frm" class = "noPrint">
+
+           必印版：<a href = "demos/v1.pdf">v1版</a><br>
+
+    自訂
+
+  <select id="font" name="font" ng-model = "root.font">
+
+    <optgroup label="全字庫">
+      <option value="?font=kai">楷書</option><option value="?font=sung">宋體</option><option value="?font=ebas">篆文</option></optgroup>
+    <optgroup label="逢甲大學"><option value="?font=shuowen">說文標篆</option></optgroup>
+    <optgroup label="王漢宗"><option value="?font=wt071">中行書</option><option value="?font=wt024">中仿宋</option><option value="?font=wt021">中隸書</option><option value="?font=wt001">細明體</option><option value="?font=wt002">中明體</option><option value="?font=wt003">粗明體</option><option value="?font=wt005">超明體</option><option value="?font=wt004">特明體</option><option value="?font=wt006">細圓體</option><option value="?font=wt009">特圓體</option><option value="?font=wt011">細黑體</option><option value="?font=wt014">特黑體</option><option value="?font=wt064">顏楷體</option><option value="?font=wt028">空疊圓</option><option value="?font=wt034">勘亭流</option><option value="?font=wt040">綜藝體</option><option value="?font=wtcc02">酷儷海報</option><option value="?font=wtcc15">酷正海報</option><option value="?font=wthc06">鋼筆行楷</option></optgroup></select></form>
+
+<div id = "custom" class="noPrint">	
+  
+
+	<div ng-repeat = "suitC in root.suits" class="tool {{suitC}} noPrint">
+    	<p class = "right noPrint" ng-show = "suitC == 'Spade'">&spades;</p>
+    	<p class = "right noPrint" ng-show = "suitC == 'Heart'">&hearts;</p>
+    	<p class = "right noPrint" ng-show = "suitC == 'Dimond'">&diams;</p>
+    	<p class = "right noPrint" ng-show = "suitC == 'Club'">&clubs;</p>
+
+      <div id = "bull">
+        <p ng-repeat = "index in keys" class="noPrint">
+          {{ root.cards[index].n }}
+          <input ng-model = "$parent.root.cards[index][suitC].t">
+          <input ng-model = "$parent.root.cards[index][suitC].u">
+        </p>
+      </div>
+	</div>
+
+</div>
+
+
+<div ng-repeat = "suitID in [0,1,2,3]" style="position:relative;">
+
+	<div ng-repeat = "card in root.cards" class="card {{root.suits[suitID]}}" style="left:{{card.left * 64 - 2}}mm; top:{{card.top * 89 + suitID*89*4*magic}}mm;">
+
+
+	  	<div class="front {{root.suits[suitID]}}{{card.n}}">
+
+		    <div class="index" ng-hide = "card.n |isElem:['J','Q','K','天','水'] ">{{card.n}}<br /> 
+  		    	<span ng-show = "root.suits[suitID] == 'Spade'">&spades;</span>
+  		    	<span ng-show = "root.suits[suitID] == 'Heart'">&hearts;</span>
+  		    	<span ng-show = "root.suits[suitID] == 'Dimond'">&diams;</span>
+  		    	<span ng-show = "root.suits[suitID] == 'Club'">&clubs;</span>
+		    </div>
+  
+    <div class="title">
+      <img 
+
+      ng-repeat = "char in (card[root.suits[suitID]].t || '資訊待補充') | makeCharList track by $index" class="moe" src = "http://www.moedict.tw/{{ char | makeMoe }}.png{{root.font}}"  alt="{{char}}" 
+
+      style = "width : {{ Math.min(40 / card[root.suits[suitID]].t.length, 15) }}mm;">
+    </div>
+
+		    <div ng-repeat = "tail in card.css"    
+		    class="{{ tail | makeCss }}">
+		    	<a href = "http://{{card[root.suits[suitID]].u || 'skywater.site44.com' | makeQR}}" target="_blank">
+
+		    	<img class = "icon" ng-src="http://chart.apis.google.com/chart?chs=200x200&amp;cht=qr&amp;chld=|1&amp;chl=http%3A%2F%2F{{card[root.suits[suitID]].u || 'skywater.site44.com' | makeQR}}%2F" alt="qrcode_ex" >
+
+		    	</a>
+		    </div>
+
+    <div class="flipTitle" 
+
+    style = "top:  {{86 - Math.min(40 / card[root.suits[suitID]].t.length, 15)}}mm;">
+
+       <img ng-repeat = "char in (card[root.suits[suitID]].t || '資訊待補充') | makeCharList track by $index" class="moe" src = "http://www.moedict.tw/{{char | makeMoe }}.png{{root.font}} alt = {{char}}" style = "
+
+          width: {{ Math.min(40 / card[root.suits[suitID]].t.length, 15) }}mm;">
+    </div> 
+	        <div class="flipIndex" ng-hide = "card.n | isElem:['J','Q','K','天','水'] ">{{card.n}}<br />
+
+  	          <span ng-show = "root.suits[suitID] == 'Spade'">&spades;</span>
+  	          <span ng-show = "root.suits[suitID] == 'Heart'">&hearts;</span>
+  	          <span ng-show = "root.suits[suitID] == 'Dimond'">&diams;</span>
+  	          <span ng-show = "root.suits[suitID] == 'Club'">&clubs;</span>
+	        </div>
+	  	</div>  	
+
+      <div class="print {{root.suits[suitID]}}{{card.n}}"></div>
+	</div>
+  <span class="page-break"></span>
+</div>
+
+
+<script src="./javascripts/lib/jquery-1.10.2.js"></script>
+<script src="./javascripts/lib/angular.min.js"></script>
+
+<script type="text/javascript" src = "./javascripts/index.js">
+  </script>
+
+
+</body>
+
+
+</html>
